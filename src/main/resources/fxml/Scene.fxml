@@ -66,7 +66,7 @@
                         <Label layoutX="232.0" layoutY="5.0" text="Inserimento di un nuovo tavolo" />
                         <Label layoutX="344.0" layoutY="399.0" text="Importo:" />
                         <JFXTextField fx:id="txtPersoneServite" editable="false" layoutX="180.0" layoutY="395.0" prefHeight="26.0" prefWidth="89.0" promptText="Sono state servite 0 persone" text="0" />
-                        <JFXTextField fx:id="txtImporto" layoutX="430.0" layoutY="395.0" promptText="10,00" />
+                        <JFXTextField fx:id="txtImporto" layoutX="430.0" layoutY="395.0" promptText="10,00" text="10.00" />
                         <JFXButton fx:id="btnSalvaTavolo" layoutX="474.0" layoutY="438.0" onAction="#doSalvaTavolo" text="Salva tavolo" />
                         <JFXButton fx:id="btnPulisciTavolo" layoutX="379.0" layoutY="438.0" onAction="#doPulisciTavolo" text="Pulisci tavolo" />
                         <JFXButton fx:id="btnAggiungiOrdinazione" buttonType="RAISED" layoutX="250.0" layoutY="219.0" onAction="#doAggiungiOrdinazione" text="Aggiungi ordinazione" />

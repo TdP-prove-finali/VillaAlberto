@@ -445,7 +445,6 @@ public class FXMLController {
 		else txtRiepilogoTavolo.setText("Errore nell'inserimento del tavolo\n");
 		
 		//Reimposto tutto per aggiungere il tavolo successivo
-		txtRiepilogoTavolo.clear();
 		txtImporto.clear();
 		txtPersoneServite.setText("0");
 		pickGiorno.setValue(LocalDate.now());
@@ -478,11 +477,52 @@ public class FXMLController {
 
 	@FXML
 	void setBest(ActionEvent event) {
-
+		bDehors.setSelected(true);
+		sldDehors.setValue(6);
+		bAsporto.setSelected(true);
+		sldAsporto.setValue(1.0);
+		bPiattoFreddo.setSelected(true);
+		sldPiattoFreddo.setValue(1.0);
+		bCucinaIdeale.setSelected(true);
+		sldCucinaIdeale.setValue(0);
+		bSanificazioneIdeale.setSelected(true);
+		sldSanificazioneIdeale.setValue(0);
+		bErroreInCucina.setSelected(false);
+		bAttesaIllimitata.setSelected(true);
+		bPastaFresca.setSelected(true);
+		sldCucinaIdeale.setDisable(true);
+		sldSanificazioneIdeale.setDisable(true);
+		sldErroreInCucina.setDisable(true);
+		sldAttesaIllimitata.setDisable(true);
+		sldDehors.setDisable(false);
+		sldAsporto.setDisable(false);
+		sldPiattoFreddo.setDisable(false);
 	}
 
 	@FXML
 	void setWorst(ActionEvent event) {
+		sldCucinaIdeale.setDisable(false);
+		sldSanificazioneIdeale.setDisable(false);
+		sldErroreInCucina.setDisable(false);
+		sldAttesaIllimitata.setDisable(false);
+		sldDehors.setDisable(true);
+		sldAsporto.setDisable(true);
+		sldPiattoFreddo.setDisable(true);
+		bDehors.setSelected(false);
+		sldDehors.setValue(0);
+		bAsporto.setSelected(false);
+		sldAsporto.setValue(0);
+		bPiattoFreddo.setSelected(false);
+		sldPiattoFreddo.setValue(0);
+		bCucinaIdeale.setSelected(false);
+		sldCucinaIdeale.setValue(10);
+		bSanificazioneIdeale.setSelected(false);
+		sldSanificazioneIdeale.setValue(4);
+		bErroreInCucina.setSelected(true);
+		sldErroreInCucina.setValue(5);
+		bAttesaIllimitata.setSelected(false);
+		sldAttesaIllimitata.setValue(5);
+		bPastaFresca.setSelected(false);
 
 	}
 
