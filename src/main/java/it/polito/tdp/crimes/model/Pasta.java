@@ -38,8 +38,7 @@ public class Pasta {
 
 	@Override
 	public String toString() {
-		return "id:" + id + " nome:" + nome + " cotturaMax:" + cotturaMax + " cotturaMin:" + cotturaMin
-				+ " descrizione:" + descrizione;
+		return nome;
 	}
 	
 	

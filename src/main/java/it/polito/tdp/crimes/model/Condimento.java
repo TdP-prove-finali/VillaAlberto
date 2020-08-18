@@ -27,7 +27,7 @@ public class Condimento {
 	}
 	@Override
 	public String toString() {
-		return "id:" + id + " nome:" + nome + " tempo:" + tempo + " descrizione:" + descrizione;
+		return nome;
 	}
 	
 

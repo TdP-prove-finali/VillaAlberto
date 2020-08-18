@@ -38,7 +38,7 @@ public class Piatto {
 
 	@Override
 	public String toString() {
-		return "id:" + id + " nome:" + nome + " preparazione:" + preparazione + " descrizione:" + descrizione;
+		return nome;
 	}
 	
 	
