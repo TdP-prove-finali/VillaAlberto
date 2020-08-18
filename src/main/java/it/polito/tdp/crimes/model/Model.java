@@ -14,6 +14,9 @@ import com.javadocmd.simplelatlng.LatLngTool;
 import com.javadocmd.simplelatlng.util.LengthUnit;
 
 import java.lang.Object;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 import it.polito.tdp.crimes.db.EventsDao;
 
@@ -61,6 +64,26 @@ public class Model {
 
 	public void pulisciListaTavolo() {
 		listaOrdinazioniDelTavolo.clear();
+		
+	}
+
+
+	public boolean salvaTavolo(LocalDate giorno, LocalTime oraArrivo, LocalTime oraOrdinazione, LocalTime oraServizio, LocalTime oraScontrino, double importo) {
+		
+			LocalDateTime arrivo= LocalDateTime.of(giorno, oraArrivo);
+			LocalDateTime ordinazione= LocalDateTime.of(giorno, oraOrdinazione);
+			LocalDateTime servizio= LocalDateTime.of(giorno, oraServizio);
+			LocalDateTime scontrino= LocalDateTime.of(giorno, oraScontrino);
+			
+			if (dao.salvaTavolo(importo, arrivo, ordinazione, servizio, scontrino)&&dao.salvaListaOrdiniTavolo(listaOrdinazioniDelTavolo))
+				{ listaOrdinazioniDelTavolo.clear();
+				return true;
+				}
+			else return false;
+		
+		//sentenza di ritorno se tutto è andato a buon fine
+		
+		
 		
 	}	
 	

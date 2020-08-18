@@ -426,12 +426,27 @@ public class FXMLController {
 
 	@FXML
 	void doSalvaTavolo(ActionEvent event) {
-		//salvo il tavolo
+		double importo;
+		//Guardo se l'importo è ammissibile
+		try {
+			importo= Double.parseDouble(txtImporto.getText());
+		}
+		catch (NumberFormatException e) {
+			txtRiepilogoTavolo.setText("Introdotto un importo non parsabile");
+			return;
+		}
 		
+		
+		//salvo il tavolo
+		if (model.salvaTavolo(pickGiorno.getValue(), pickArrivo.getValue(), pickOrdinazione.getValue(), pickServizio.getValue(), pickScontrino.getValue(),importo))
+		{
+			txtRiepilogoTavolo.setText("Tavolo aggiunto correttamente\n");
+		}
+		else txtRiepilogoTavolo.setText("Errore nell'inserimento del tavolo\n");
 		
 		//Reimposto tutto per aggiungere il tavolo successivo
 		txtRiepilogoTavolo.clear();
-		model.pulisciListaTavolo();
+		txtImporto.clear();
 		txtPersoneServite.setText("0");
 		pickGiorno.setValue(LocalDate.now());
 		pickArrivo.setValue(LocalTime.of(12, 0));
