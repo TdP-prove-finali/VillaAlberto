@@ -426,9 +426,13 @@ public class FXMLController {
 
 	@FXML
 	void doSalvaTavolo(ActionEvent event) {
+		//salvo il tavolo
 		
+		
+		//Reimposto tutto per aggiungere il tavolo successivo
 		txtRiepilogoTavolo.clear();
 		model.pulisciListaTavolo();
+		txtPersoneServite.setText("0");
 		pickGiorno.setValue(LocalDate.now());
 		pickArrivo.setValue(LocalTime.of(12, 0));
 		pickGiorno.setDisable(false);
