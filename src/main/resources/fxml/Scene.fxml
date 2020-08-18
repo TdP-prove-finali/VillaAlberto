@@ -1,54 +1,260 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXRadioButton?>
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.controls.JFXTimePicker?>
+<?import com.jfoenix.controls.JFXToggleButton?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="392.0" prefWidth="360.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polito.tdp.crimes.FXMLController">
+<BorderPane prefHeight="523.0" prefWidth="630.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polito.tdp.crimes.FXMLController">
    <top>
-      <Label prefWidth="229.0" text="2019-06-05-simulazione" textAlignment="CENTER" BorderPane.alignment="CENTER" />
+      <TabPane prefHeight="488.0" prefWidth="630.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+        <tabs>
+          <Tab text="Nuova Giornata">
+            <content>
+              <AnchorPane prefHeight="510.0" prefWidth="630.0">
+                     <children>
+                        <GridPane layoutX="40.0" layoutY="25.0" prefHeight="179.0" prefWidth="526.0">
+                          <columnConstraints>
+                              <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <JFXTimePicker fx:id="pickArrivo" onAction="#aggiornaOrdinazione" GridPane.columnIndex="3" />
+                              <JFXTimePicker fx:id="pickOrdinazione" onAction="#AggiornaServizio" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                              <JFXTimePicker fx:id="pickServizio" onAction="#aggiornaScontrino" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                              <JFXTimePicker fx:id="pickScontrino" onAction="#liberaOrdinazione" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                              <JFXDatePicker fx:id="pickGiorno" GridPane.columnIndex="1" />
+                              <Label text="Giorno" />
+                              <Label text="Pasta" GridPane.rowIndex="1" />
+                              <Label text="Condimento" GridPane.rowIndex="2" />
+                              <Label text="Piatto" GridPane.rowIndex="3" />
+                              <Label text="Arrivo" GridPane.columnIndex="2" />
+                              <Label text="Ordinazione" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                              <Label text="Servizio" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                              <Label text="Scontrino" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                              <JFXComboBox fx:id="cmbPasta" onAction="#abilitaCondimentoDisabilitaPiatto" prefHeight="26.0" prefWidth="123.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <JFXComboBox fx:id="cmbCondimento" prefHeight="26.0" prefWidth="123.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <JFXComboBox fx:id="cmbPiatto" onAction="#disabilitaPasta" prefHeight="26.0" prefWidth="123.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                           </children>
+                        </GridPane>
+                        <JFXTextArea fx:id="txtRiepilogoTavolo" editable="false" layoutX="83.0" layoutY="252.0" prefHeight="128.0" prefWidth="464.0" promptText="Riepilogo del tavolo" />
+                        <Label layoutX="232.0" layoutY="5.0" text="Inserimento di un nuovo tavolo" />
+                        <Label layoutX="344.0" layoutY="399.0" text="Importo:" />
+                        <JFXTextField fx:id="txtPersoneServite" editable="false" layoutX="180.0" layoutY="395.0" prefHeight="26.0" prefWidth="89.0" promptText="Sono state servite 0 persone" text="0" />
+                        <JFXTextField fx:id="txtImporto" layoutX="430.0" layoutY="395.0" promptText="10,00" />
+                        <JFXButton fx:id="btnSalvaTavolo" layoutX="474.0" layoutY="438.0" onAction="#doSalvaTavolo" text="Salva tavolo" />
+                        <JFXButton fx:id="btnPulisciTavolo" layoutX="379.0" layoutY="438.0" onAction="#doPulisciTavolo" text="Pulisci tavolo" />
+                        <JFXButton fx:id="btnAggiungiOrdinazione" buttonType="RAISED" layoutX="250.0" layoutY="219.0" onAction="#doAggiungiOrdinazione" text="Aggiungi ordinazione" />
+                        <Label layoutX="84.0" layoutY="399.0" text="Persone servite: " />
+                     </children></AnchorPane>
+            </content>
+          </Tab>
+          <Tab text="Riepilogo Periodico">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="472.0" prefWidth="630.0">
+                     <children>
+                        <GridPane layoutX="7.0" layoutY="14.0" prefHeight="167.0" prefWidth="602.0">
+                          <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="236.5999755859375" minWidth="10.0" prefWidth="203.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="146.20001220703125" minWidth="10.0" prefWidth="99.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <Label text="Periodo di riferimento" GridPane.halignment="CENTER" />
+                              <JFXRadioButton fx:id="radUltimaSettimana" selected="true" text="Ultima settimana" GridPane.rowIndex="1">
+                                 <toggleGroup>
+                                    <ToggleGroup fx:id="periodo" />
+                                 </toggleGroup>
+                              </JFXRadioButton>
+                              <JFXRadioButton fx:id="radUltimoMese" text="Ultimo mese lavorativo" toggleGroup="$periodo" GridPane.rowIndex="2" />
+                              <JFXRadioButton fx:id="radUltimiMesi" text="Ultimi due mesi lavorativi" toggleGroup="$periodo" GridPane.rowIndex="3" />
+                              <Label text="Condizioni ricorsione" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                              <Label text="Clienti" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                              <Label text="Fatturato" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+                              <Label text="Tempi preparazione" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
+                              <JFXRadioButton fx:id="radMinClienti" text=" " GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                                 <toggleGroup>
+                                    <ToggleGroup fx:id="clienti" />
+                                 </toggleGroup>
+                              </JFXRadioButton>
+                              <JFXRadioButton fx:id="radMinFatturato" selected="true" text=" " GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                                 <toggleGroup>
+                                    <ToggleGroup fx:id="fatturato" />
+                                 </toggleGroup>
+                              </JFXRadioButton>
+                              <JFXRadioButton fx:id="radMinTempi" text=" " GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+                                 <toggleGroup>
+                                    <ToggleGroup fx:id="tempi" />
+                                 </toggleGroup>
+                              </JFXRadioButton>
+                              <JFXRadioButton fx:id="radMaxClienti" selected="true" text=" " toggleGroup="$clienti" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                              <JFXRadioButton fx:id="radMaxFatturato" text=" " toggleGroup="$fatturato" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+                              <JFXRadioButton fx:id="radMaxTempi" selected="true" text=" " toggleGroup="$tempi" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
+                              <Label text="MASSIMO" GridPane.columnIndex="3" GridPane.halignment="CENTER" />
+                              <Label text="MINIMO" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
+                           </children>
+                        </GridPane>
+                        <Line endX="-44.60005187988281" endY="-120.59999084472656" layoutX="261.0" layoutY="295.0" startX="-44.60005187988281" startY="-265.3999938964844" />
+                        <JFXButton fx:id="AvviaRicorsione" layoutX="286.0" layoutY="181.0" onAction="#soRicorsione" text="Avvia" />
+                        <JFXTextArea fx:id="txtParametriSignificativi" editable="false" layoutX="5.0" layoutY="215.0" prefHeight="118.0" prefWidth="614.0" promptText="Parametri significativi" />
+                        <JFXTextArea fx:id="txtRisultatoRicorsione" editable="false" layoutX="5.0" layoutY="349.0" prefHeight="101.0" prefWidth="614.0" promptText="Risultato della ricorsione" />
+                     </children></AnchorPane>
+            </content>
+          </Tab>
+            <Tab text="Selezione Condizioni">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <GridPane layoutX="52.0" layoutY="14.0" prefHeight="437.0" prefWidth="526.0">
+                          <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <JFXToggleButton fx:id="bDehors" onAction="#abilitaDehors" selected="true" text="Dehors" GridPane.rowIndex="1" />
+                              <Slider fx:id="sldDehors" blockIncrement="1.0" majorTickUnit="1.0" max="6.0" minorTickCount="0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="3.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                              <Label text="Numero di giorni" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                              <JFXToggleButton fx:id="bAsporto" onAction="#abilitaAsporto" selected="true" text="Asporto" GridPane.rowIndex="2" />
+                              <JFXToggleButton fx:id="bPastaFresca" selected="true" text="Pasta fresca" GridPane.rowIndex="8" />
+                              <Label text="Soddisfazione %" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+                              <Slider fx:id="sldAsporto" blockIncrement="0.1" majorTickUnit="0.2" max="1.0" minorTickCount="1" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="0.5" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                              <JFXToggleButton fx:id="bPiattoFreddo" onAction="#abilitaPiattoFreddo" selected="true" text="Piatto freddo" GridPane.rowIndex="3" />
+                              <Label text="Soddisfazione %" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
+                              <Slider fx:id="sldPiattoFreddo" blockIncrement="0.1" majorTickUnit="0.2" max="1.0" minorTickCount="1" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="0.5" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                              <JFXToggleButton fx:id="bCucinaIdeale" onAction="#abilitaCucinaIdeale" text="Cucina ideale" GridPane.rowIndex="4" />
+                              <Label text="Tempo riassetto minuti" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
+                              <Slider fx:id="sldCucinaIdeale" blockIncrement="0.5" majorTickUnit="2.0" max="10.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="5.0" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+                              <JFXToggleButton fx:id="bSanificazioneIdeale" onAction="#abilitaSanificazioneIdeale" text="Sanificazione ideale" GridPane.rowIndex="5" />
+                              <Label text="Tempo sanificazione minuti" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
+                              <Slider fx:id="sldSanificazioneIdeale" blockIncrement="0.5" majorTickUnit="1.0" max="4.0" minorTickCount="1" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="2.0" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+                              <JFXToggleButton fx:id="bErroreInCucina" onAction="#abilitaErroreInCucina" selected="true" text="Errore in cucina" GridPane.rowIndex="6" />
+                              <Label text="Frequenza" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="6" />
+                              <Slider fx:id="sldErroreInCucina" blockIncrement="1.0" majorTickUnit="5.0" max="25.0" min="5.0" minorTickCount="4" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="15.0" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+                              <JFXButton fx:id="btnBEST" onAction="#setBest" text="BEST" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="8" />
+                              <JFXButton fx:id="WORST" onAction="#setWorst" text="WORST" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="8" />
+                              <JFXToggleButton fx:id="bAttesaIllimitata" onAction="#abilitaAttesaIllimitata" text="Attesa illimitata" GridPane.rowIndex="7" />
+                              <Label text="Tempo minuti" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="7" />
+                              <Slider fx:id="sldAttesaIllimitata" blockIncrement="1.0" majorTickUnit="5.0" max="25.0" min="5.0" minorTickCount="4" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="15.0" GridPane.columnIndex="2" GridPane.rowIndex="7" />
+                           </children>
+                        </GridPane>
+                     </children></AnchorPane>
+              </content>
+            </Tab>
+            <Tab text="Simulazione">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <JFXButton fx:id="btnAvviaSimulazione" layoutX="250.0" layoutY="14.0" onAction="#doSimulazione" text="AVVIA SIMULAZIONE" />
+                        <GridPane layoutX="31.0" layoutY="35.0" prefHeight="398.0" prefWidth="558.0">
+                          <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <Label text="BEST" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
+                              <Label text="WORST" GridPane.columnIndex="2" GridPane.halignment="CENTER" />
+                              <Label text="SIMULAZIONE" GridPane.columnIndex="3" GridPane.halignment="CENTER">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                              </Label>
+                              <Label GridPane.rowIndex="1" />
+                              <Label text="Insoddisfatti" GridPane.rowIndex="2" />
+                              <Label text="\% soddisfazione" GridPane.rowIndex="3" />
+                              <JFXTextField fx:id="txtBestSoddisfatti" editable="false" prefHeight="26.0" prefWidth="118.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <JFXTextField fx:id="txtWorstSoddisfatti" editable="false" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                              <JFXTextField fx:id="txtSimulazioneSoddisfatti" editable="false" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                              <JFXTextField fx:id="txtBestInsoddisfatti" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <JFXTextField fx:id="txtWorstInsoddisfatti" editable="false" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                              <JFXTextField fx:id="txtSimulazioneInsoddisfatti" editable="false" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                              <JFXTextField fx:id="txtBestSoddisfazione" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                              <JFXTextField fx:id="txtWorstSoddisfazione" editable="false" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                              <JFXTextField fx:id="txtSimulazioneSoddisfazione" editable="false" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                              <JFXTextField fx:id="txtBestAttesa" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                              <JFXTextField fx:id="txtWorstAttesa" editable="false" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+                              <JFXTextField fx:id="txtSimulazioneAttesa" editable="false" GridPane.columnIndex="3" GridPane.rowIndex="4" />
+                              <JFXTextField fx:id="txtBestAsporto" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                              <JFXTextField fx:id="txtWorstAsporto" editable="false" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+                              <JFXTextField fx:id="txtSimulazioneAsporto" editable="false" GridPane.columnIndex="3" GridPane.rowIndex="5" />
+                              <JFXTextField fx:id="txtBestPreparati" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                              <JFXTextField fx:id="txtWorstPreparati" editable="false" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+                              <JFXTextField fx:id="txtSimulazionePreparati" editable="false" GridPane.columnIndex="3" GridPane.rowIndex="6" />
+                              <JFXTextField fx:id="txtBestFatturato" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                              <JFXTextField fx:id="txtWorstFatturato" editable="false" GridPane.columnIndex="2" GridPane.rowIndex="7" />
+                              <JFXTextField fx:id="txtSimulazioneFatturato" editable="false" GridPane.columnIndex="3" GridPane.rowIndex="7" />
+                              <Label text="Clienti totali: " />
+                              <Label fx:id="numeroClienti" text="0">
+                                 <padding>
+                                    <Insets left="80.0" />
+                                 </padding>
+                              </Label>
+                              <Label text="Soddisfatti" GridPane.rowIndex="1" />
+                              <Label text="Tempo attesa medio" GridPane.rowIndex="4" />
+                              <Label text="\% asporto" GridPane.rowIndex="5" />
+                              <Label text="\% piatti preparati" GridPane.rowIndex="6" />
+                              <Label text="Fatturato" GridPane.rowIndex="7" />
+                           </children>
+                        </GridPane>
+                     </children></AnchorPane>
+              </content>
+            </Tab>
+        </tabs>
+      </TabPane>
    </top>
-   <center>
-      <VBox prefHeight="374.0" prefWidth="360.0" BorderPane.alignment="CENTER">
-         <children>
-            <GridPane alignment="CENTER" prefHeight="119.0" prefWidth="345.0">
-              <columnConstraints>
-                <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="136.0" minWidth="10.0" prefWidth="77.0" />
-                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="316.0" minWidth="10.0" prefWidth="150.0" />
-                  <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="281.0" minWidth="8.0" prefWidth="124.0" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-              </rowConstraints>
-               <children>
-                  <Label alignment="CENTER" text="Anno" />
-                  <Label text="Mese" GridPane.rowIndex="1" />
-                  <Label text="Giorno" GridPane.rowIndex="2" />
-                  <ComboBox fx:id="boxAnno" prefWidth="150.0" GridPane.columnIndex="1" />
-                  <ComboBox fx:id="boxMese" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <ComboBox fx:id="boxGiorno" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <Button fx:id="btnCreaReteCittadina" mnemonicParsing="false" onAction="#doCreaReteCittadina" text="Rete Cittadina" GridPane.columnIndex="2" />
-                  <Button fx:id="btnSimula" mnemonicParsing="false" onAction="#doSimula" text="Simula" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                  <Label text="N" GridPane.rowIndex="3" />
-                  <TextField fx:id="txtN" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-               </children>
-               <VBox.margin>
-                  <Insets bottom="20.0" left="10.0" right="10.0" top="20.0" />
-               </VBox.margin>
-            </GridPane>
-            <TextArea fx:id="txtResult" prefHeight="222.0" prefWidth="360.0" />
-         </children>
-      </VBox>
-   </center>
 </BorderPane>
