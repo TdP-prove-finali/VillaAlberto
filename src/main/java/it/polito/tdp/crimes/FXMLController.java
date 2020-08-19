@@ -528,7 +528,24 @@ public class FXMLController {
 
 	@FXML
 	void soRicorsione(ActionEvent event) {
-
+		btnAvviaSimulazione.setDisable(false);
+		int numGiorni=0;
+		if (radUltimaSettimana.isSelected())
+			numGiorni=6;
+		if (radUltimoMese.isSelected())
+			numGiorni=20;
+		if (radUltimiMesi.isSelected())
+			numGiorni=40;
+		
+		//Prendo dal database i miei dati
+		model.prendiDati(numGiorni);
+		txtParametriSignificativi.setText("Dati ottenuti correttamente dal DB\n");
+		txtParametriSignificativi.appendText(String.format("Serviti %d clienti in %d giorni con fatturato totale di %.2f€\n", model.numeroDiClienti(), model.giorniEffettivi(numGiorni), model.fatturato()));
+		txtParametriSignificativi.appendText(String.format("Tempo medio INTERARRIVO: %d minuti\n", model.tempoMedioInterarrivo(numGiorni)));
+		txtParametriSignificativi.appendText(String.format("Tempo medio PRESA COMANDA: %d minuti\n", model.tempoMedioPresaComanda()));
+		txtParametriSignificativi.appendText(String.format("Tempo medio CUCINA: %d minuti\n", model.tempoMedioCucina()));
+		txtParametriSignificativi.appendText(String.format("Tempo medio CONSUMAZIONE: %d minuti\n", model.tempoMedioConsumazione()));
+		txtParametriSignificativi.appendText(String.format("Piatti cucinati: %d/%d, %.2f %%piatti cucinati, %.2f %%piatti già pronti", model.porzioniDiPastaServite(), model.numeroDiClienti(), model.percentualePasta(), model.percentualePiatto()));
 	}
 
 	@FXML

@@ -38,6 +38,11 @@ public class Tavolo {
 	public LocalDateTime getTempoScontrino() {
 		return tempoScontrino;
 	}
+	@Override
+	public String toString() {
+		return "id:" + id + " importo:" + importo + " tempoArrivo:" + tempoArrivo + " tempoOrdinazione:"
+				+ tempoOrdinazione + " tempoServizio:" + tempoServizio + " tempoScontrino:" + tempoScontrino;
+	}
 	
 	
 
