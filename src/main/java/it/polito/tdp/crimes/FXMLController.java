@@ -18,7 +18,6 @@ import it.polito.tdp.crimes.model.Piatto;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -533,9 +532,9 @@ public class FXMLController {
 		if (radUltimaSettimana.isSelected())
 			numGiorni=6;
 		if (radUltimoMese.isSelected())
-			numGiorni=20;
+			numGiorni=12;
 		if (radUltimiMesi.isSelected())
-			numGiorni=40;
+			numGiorni=24;
 		
 		//Prendo dal database i miei dati
 		model.prendiDati(numGiorni);
@@ -546,6 +545,19 @@ public class FXMLController {
 		txtParametriSignificativi.appendText(String.format("Tempo medio CUCINA: %d minuti\n", model.tempoMedioCucina()));
 		txtParametriSignificativi.appendText(String.format("Tempo medio CONSUMAZIONE: %d minuti\n", model.tempoMedioConsumazione()));
 		txtParametriSignificativi.appendText(String.format("Piatti cucinati: %d/%d, %.2f %%piatti cucinati, %.2f %%piatti già pronti", model.porzioniDiPastaServite(), model.numeroDiClienti(), model.percentualePasta(), model.percentualePiatto()));
+		boolean maxClienti=false;
+		boolean maxFatturato=false;
+		boolean maxTempi=false;
+		if (radMaxClienti.isSelected())
+			maxClienti=true;
+		if (radMaxFatturato.isSelected())
+			maxFatturato=true;
+		if (radMaxTempi.isSelected())
+			maxTempi=true;
+		
+			model.doRicorsione(maxClienti, maxFatturato, maxTempi);
+			txtRisultatoRicorsione.setText("Ricorsione in corso\n");
+			txtRisultatoRicorsione.setText(String.format("La simulazione avverrà con le ordinazioni reali di %d clienti\n L'importo totale da incassare è di %.2f €\n La cucina lavorerà idealmente per %d minuti", model.clientidaSimulare(), model.fatturatoDaSimulare(), model.tempoDaSimulare()));
 	}
 
 	@FXML

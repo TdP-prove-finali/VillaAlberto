@@ -98,8 +98,8 @@
                                     <ToggleGroup fx:id="periodo" />
                                  </toggleGroup>
                               </JFXRadioButton>
-                              <JFXRadioButton fx:id="radUltimoMese" text="Ultimo mese lavorativo" toggleGroup="$periodo" GridPane.rowIndex="2" />
-                              <JFXRadioButton fx:id="radUltimiMesi" text="Ultimi due mesi lavorativi" toggleGroup="$periodo" GridPane.rowIndex="3" />
+                              <JFXRadioButton fx:id="radUltimoMese" text="Ultime due settimane" toggleGroup="$periodo" GridPane.rowIndex="2" />
+                              <JFXRadioButton fx:id="radUltimiMesi" text="Ultimo mese lavorativo" toggleGroup="$periodo" GridPane.rowIndex="3" />
                               <Label text="Condizioni ricorsione" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
                               <Label text="Clienti" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
                               <Label text="Fatturato" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
@@ -128,8 +128,8 @@
                         </GridPane>
                         <Line endX="-44.60005187988281" endY="-120.59999084472656" layoutX="261.0" layoutY="295.0" startX="-44.60005187988281" startY="-265.3999938964844" />
                         <JFXButton fx:id="AvviaRicorsione" layoutX="286.0" layoutY="181.0" onAction="#soRicorsione" text="Avvia" />
-                        <JFXTextArea fx:id="txtParametriSignificativi" editable="false" layoutX="5.0" layoutY="215.0" prefHeight="118.0" prefWidth="614.0" promptText="Parametri significativi" />
-                        <JFXTextArea fx:id="txtRisultatoRicorsione" editable="false" layoutX="5.0" layoutY="349.0" prefHeight="101.0" prefWidth="614.0" promptText="Risultato della ricorsione" />
+                        <JFXTextArea fx:id="txtParametriSignificativi" editable="false" layoutX="5.0" layoutY="203.0" prefHeight="144.0" prefWidth="614.0" promptText="Parametri significativi" />
+                        <JFXTextArea fx:id="txtRisultatoRicorsione" editable="false" layoutX="5.0" layoutY="349.0" prefHeight="127.0" prefWidth="614.0" promptText="Risultato della ricorsione" />
                      </children></AnchorPane>
             </content>
           </Tab>
