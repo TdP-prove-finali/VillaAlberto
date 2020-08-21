@@ -1,67 +1,99 @@
 package it.polito.tdp.crimes.model;
 
-import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.LinkedList;
-import java.util.Map;
+import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Queue;
-import java.util.TreeMap;
-
 import org.jgrapht.Graph;
 import org.jgrapht.graph.DefaultWeightedEdge;
 
-import it.polito.tdp.crimes.db.EventsDao;
+import it.polito.tdp.crimes.model.Evento.EventType;
 
 public class Simula{
 	
 //	private EventsDao dao;
-//	private Graph<Integer, DefaultWeightedEdge> grafo;
-//	private int numeroAgenti;
-//	private int anno;
-//	private int mese;
-//	private int giorno;
-//	private int centrale=-1;
-//	private Queue<Evento> coda;
-//	private Map<Integer, Agente> mappaAgenti;
-//	private int casiTotali=-1;
-//	private int insoddisfatti=-1;
-//	
-//	public Simula(int numeroAgenti, Graph<Integer, DefaultWeightedEdge> grafo, int anno, int mese, int giorno) {
-//		dao= new EventsDao();
-//		this.grafo=grafo;
-//		this.anno=anno;
-//		this.mese=mese;
-//		this.giorno=giorno;
-//		this.numeroAgenti=numeroAgenti;
-//		
-//	}
-//	
-//	public void AvviaSimulazione() {
-//		//Lista di ogni crimine ordinate per data conoscendo giorno mese e anno
-//		coda= new PriorityQueue<Evento>();
-//		casiTotali=0;
-//		for (Event e: dao.listAllEventsbyDate(anno, mese, giorno))
-//		{
-//			System.out.println(e);
-//			coda.add(new Evento(e.getDistrict_id(), TipoDiEvento.ASSEGNAZIONE_CASO, e.getReported_date(), e.getOffense_type_id(), e));
-//			casiTotali++;
-//		}
-//		
-//		//Calcolo qual è il distretto in cui colloco la centrale (DAO) --> collocata nel centro
-//		centrale=dao.getCentrale(anno);
-//		System.out.println("La centrale è "+centrale);
-//		
-//		//Creo la squadra di agenti
-//		mappaAgenti= new TreeMap<Integer, Agente>();
-//		for (int i=0; i<numeroAgenti; i++)
-//		{
-//			mappaAgenti.put(i,(new Agente(i, centrale)));
-//		}
-//		
-//		//Inizializzo le mie variabili
-//		insoddisfatti=0;
-//		
+
+//  Variabili del mondo
+	private int numeroCoperti=16;
+	private int numeroBollitori=4;
+	private int maniChef=2;
+	private int numeroCopertiDehors=6;
+	private int i=0;
+	private int copertiTotali=0;
+	private int giorniDehors;
+	private double percAsporto;
+	private double perFreddo;
+	private double tempoRiassetto;
+	private double tempoSanificazione;
+	private int frequenzaErrore;
+	private int tempoAttesa;
+	private boolean pastaFresca;
+	
+	
+// Variabili output
+	private int soddisfatti;
+	private int insoddisfatti;
+	private List<Integer> tempiAttesa;
+	private int piattiAsporto;
+	private int piattiPreparati;
+	private double fatturato;
+	private List<Giornata> giornate;
+	private List<Ordinazione> ordinazioni;
+
+	//Coda degli eventi
+	private Queue<Evento> coda;
+
+	
+	public Simula(int giorniDehors2, double percAsporto, double perFreddo, double tempoRiassetto2, double tempoSanificazione2, int frequenzaErrore, int tempoAttesa, boolean pastaFresca, List<Giornata> best, List<Ordinazione> ordinazioniPerRicorsione) {
+		//Prendo tutto quello che mi serve per fare la simulazione
+		this.giornate= new LinkedList<Giornata>(best);
+		this.ordinazioni= new LinkedList<Ordinazione>(ordinazioniPerRicorsione);
+		this.giorniDehors=giorniDehors2;
+		this.percAsporto=percAsporto;
+		this.perFreddo=perFreddo;
+		this.tempoRiassetto=tempoRiassetto2;
+		this.tempoSanificazione=tempoSanificazione2;
+		this.frequenzaErrore=frequenzaErrore;
+		this.tempoAttesa=tempoAttesa;
+		this.pastaFresca=pastaFresca;
+	
+	}
+	
+	public void AvviaSimulazione() {
+		
+		//Inizializzo le variabili di output
+		soddisfatti=0;
+		insoddisfatti=0;
+		tempiAttesa= new LinkedList<Integer>();
+		piattiAsporto=0;
+		piattiPreparati=0;
+		fatturato=0.0;
+		
+		//Ciclo sulle giornate della simulazione (che sono 6)
+		for (Giornata g: giornate)
+		{	i++;
+			if (i<=giorniDehors)
+				copertiTotali=numeroCoperti+numeroCopertiDehors;
+			else
+				copertiTotali=numeroCoperti;
+			
+			System.out.println(String.format("\nInizia una nuova giornata con %d coperti", copertiTotali));
+			System.out.println(g);
+			
+			//Prendo per la giornata tutti i tavoli
+			LinkedList<Tavolo> tavoliDaServire= new LinkedList<Tavolo>(g.getListaTavoli());
+			//Inizializzo e popolo la coda degli eventi
+			coda= new PriorityQueue<Evento>();
+			for (Tavolo t: tavoliDaServire)
+			{
+				coda.add(new Evento(t.getTempoArrivo(), EventType.ARRIVA_TAVOLO, t));
+			}
+			System.out.println(coda);
+		}
+	
+
+
 //		//Eseguo la simulazione vera e propria
 //		
 //		while(!coda.isEmpty())
@@ -96,62 +128,8 @@ public class Simula{
 //		}
 //		
 //		
-//		
-//	}
-//
-//
-//	private LocalDateTime calcolaIstanteFinale(LocalDateTime istante, Duration d, String crimine) {
-//		int tempo=0;
-//		if (crimine.compareTo("all_other_crimes")==0)
-//		{
-//			if (Math.random()<0.5)
-//				tempo=60;
-//			else tempo=120;
-//		}
-//		else tempo=120;
-//		Duration du= Duration.ofMinutes(tempo);
-//		return istante.plus(d).plus(du);
-//	}
-//
-//	private Duration tempoViaggio(int distretto, int luogo) {
-//		DefaultWeightedEdge e= grafo.getEdge(distretto, luogo);
-//		double distanza=grafo.getEdgeWeight(e);
-//		double ore= distanza/60*60;
-//		Duration d= Duration.ofMinutes((long) ore);
-//		return d;
-//	}
-//
-//	private Integer agenteVicino(int distretto) {
-//		Integer bestAgente=null;
-//		Double bestDistance=5000000000000.0;
-//		for (Agente a: mappaAgenti.values())
-//		{
-//			DefaultWeightedEdge e= grafo.getEdge(distretto, a.getLuogo());
-//			if (grafo.getEdgeWeight(e)<bestDistance)
-//			{
-//				bestAgente=a.getId();
-//				bestDistance=grafo.getEdgeWeight(e);
-//			}
-//		}
-//		return bestAgente;
-//	}
-//
-//	public int getInsoddisfatti() {
-//		return insoddisfatti;
-//	}
-//	
-//	public int getTotali() {
-//		return casiTotali;
-//	}
-//	
-//	
-//	
-//	//Scelgo agente libero piu'vicino
-//	
-//	//60 km/h -->guarda distanza tra i due distretti
-//	
-//	//Tempo di permanenza 1/2 h se allOtherCrimes
-//	//Altrimenti due ore per tutti gli altri eventi
-//	//Evento mal gestito se piu'di 15 minuti di ritardo
-//	//Calcola eventi totali, eventi mal gestiti
+		
+	}
+
+
 }

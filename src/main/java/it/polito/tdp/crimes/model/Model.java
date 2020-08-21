@@ -40,10 +40,10 @@ public class Model {
 		return dao.listAllPiatto();
 	}
 
-	public void avviaSimulazione(int numeroAgenti, int giorno, int mese, int anno) {
-//		System.out.println("Sono entrato in avvia Simulazione\n");
-//		sim= new Simula(numeroAgenti, grafo, anno, mese, giorno);
-//		sim.AvviaSimulazione();
+	public void avviaSimulazione(int giorniDehors, double percAsporto, double perFreddo, double tempoRiassetto, double tempoSanificazione, int frequenzaErrore, int tempoAttesa, boolean pastaFresca) {
+		System.out.println("Sono entrato in avvia Simulazione\n");
+		Simula sim= new Simula(giorniDehors, percAsporto, perFreddo, tempoRiassetto, tempoSanificazione, frequenzaErrore, tempoAttesa, pastaFresca, best, ordinazioniPerRicorsione);
+		sim.AvviaSimulazione();
 
 	}
 
@@ -84,8 +84,6 @@ public class Model {
 		tavoliPerRicorsione = new ArrayList<Tavolo>();
 		ordinazioniPerRicorsione = new ArrayList<Ordinazione>();
 		dao.prendiDati(tavoliPerRicorsione, ordinazioniPerRicorsione, numGiorni);
-//		System.out.println(tavoliPerRicorsione+"\n");
-//		System.out.println(ordinazioniPerRicorsione+"\n");
 
 	}
 
@@ -386,7 +384,7 @@ public class Model {
 		int tempo=0;
 		for (Giornata g: best)
 			tempo+=g.getTempiPreparazione();
-		return tempo;
+		return tempo/60;
 	}
 
 }

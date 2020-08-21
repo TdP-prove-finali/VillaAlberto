@@ -2,6 +2,7 @@ package it.polito.tdp.crimes.model;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.util.LinkedList;
 
 public class Giornata {
@@ -29,6 +30,14 @@ public class Giornata {
 	}
 	
 	public LinkedList<Tavolo> getListaTavoli() {
+		listaTavoli.sort(new Comparator<Tavolo>() {
+
+			@Override
+			public int compare(Tavolo o1, Tavolo o2) {
+				// TODO Auto-generated method stub
+				return o1.getTempoArrivo().compareTo(o2.getTempoArrivo());
+			}
+		});
 		return listaTavoli;
 	}
 

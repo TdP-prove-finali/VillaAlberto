@@ -461,7 +461,54 @@ public class FXMLController {
 
 	@FXML
 	void doSimulazione(ActionEvent event) {
-
+		int giorniDehors;
+		double percAsporto;
+		double perFreddo;
+		double tempoRiassetto;
+		double tempoSanificazione;
+		int frequenzaErrore;
+		int tempoAttesa;
+		boolean pastaFresca=bPastaFresca.isSelected();
+		
+		if (bDehors.isSelected())
+			giorniDehors=(int) sldDehors.getValue();
+		else giorniDehors=0;
+		
+		if(bAsporto.isSelected())
+			percAsporto= sldAsporto.getValue();
+		else percAsporto=0;
+		
+		if(bPiattoFreddo.isSelected())
+			perFreddo=sldPiattoFreddo.getValue();
+		else perFreddo=0;
+		
+		if(bCucinaIdeale.isSelected())
+			tempoRiassetto=0;
+		else tempoRiassetto=(int) sldCucinaIdeale.getValue();
+		
+		if(bSanificazioneIdeale.isSelected())
+			tempoSanificazione=0;
+		else tempoSanificazione=(int) sldSanificazioneIdeale.getValue();
+		
+		if(bErroreInCucina.isSelected())
+			frequenzaErrore=(int) sldErroreInCucina.getValue();
+		else frequenzaErrore=10000;
+		
+		if(bAttesaIllimitata.isSelected())
+			tempoAttesa=60*1000;	
+		else tempoAttesa=(int) sldAttesaIllimitata.getValue();
+		//Avvio la simulazione
+		model.avviaSimulazione(giorniDehors, percAsporto, perFreddo, tempoRiassetto, tempoSanificazione, frequenzaErrore, tempoAttesa, pastaFresca);
+		
+		//Raccolgo i parametri
+		
+		//Avvio la simulazione best
+		
+		//Raccolgo i parametri
+		
+		//Avvio la simulazione worst
+		
+		//Raccolgo i parametri
 	}
 
 	@FXML
