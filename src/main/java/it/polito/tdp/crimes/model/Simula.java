@@ -210,7 +210,7 @@ public class Simula {
 				List<Ordinazione> ordinazioni1 = new LinkedList<Ordinazione>(dimmiOrdinazioni(e.getTavolo().getId()));
 				for (Ordinazione o : ordinazioni1) {
 					if (o.isDaCondire()) {
-						tempo += o.getCondimento().getTempo();
+						tempo +=  o.getCondimento().getTempo();
 						numeroBollitori++;
 					}
 				}
