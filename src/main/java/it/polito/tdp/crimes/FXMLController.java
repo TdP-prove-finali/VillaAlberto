@@ -497,18 +497,69 @@ public class FXMLController {
 		if(bAttesaIllimitata.isSelected())
 			tempoAttesa=60*1000;	
 		else tempoAttesa=(int) sldAttesaIllimitata.getValue();
+		//MIA SIMULAZIONE
 		//Avvio la simulazione
 		model.avviaSimulazione(giorniDehors, percAsporto, perFreddo, tempoRiassetto, tempoSanificazione, frequenzaErrore, tempoAttesa, pastaFresca);
-		
+		numeroClienti.setText(String.valueOf(model.getTotali()));
 		//Raccolgo i parametri
+		txtSimulazioneSoddisfatti.setText(String.format("%d", model.getSoddisfatti()));
+		txtSimulazioneInsoddisfatti.setText(String.format("%d", model.getInsoddisfatti()));
+		txtSimulazioneSoddisfazione.setText(String.format("%.2f%%",(double) model.getSoddisfatti()*100/model.getTotali()));
+		int contatore=0;
+		int somma=0;
+		for (Integer i: model.getListaAttese())
+		{
+			somma+=i;
+			contatore++;
+		}
+		txtSimulazioneAttesa.setText(String.format("%.2f min", 1.0*somma/contatore));
+		txtSimulazioneAsporto.setText(String.format("%.2f%%", (double)model.getAsporti()*100/model.getSoddisfatti()));
+		txtSimulazionePreparati.setText(String.format("%.2f%%", (double)model.getPreparati()*100/model.getSoddisfatti()));
+		txtSimulazioneFatturato.setText(String.format("%.2f€", model.getFatturato()/100));
 		
-		//Avvio la simulazione best
+	
 		
-		//Raccolgo i parametri
+		//BEST
 		
-		//Avvio la simulazione worst
+		//Avvio la simulazione
+				model.avviaSimulazione(6, 1, 1, 0, 0, 10000, 10000, true);
+				//Raccolgo i parametri
+				txtBestSoddisfatti.setText(String.format("%d", model.getSoddisfatti()));
+				txtBestInsoddisfatti.setText(String.format("%d", model.getInsoddisfatti()));
+				txtBestSoddisfazione.setText(String.format("%.2f%%",(double) model.getSoddisfatti()*100/model.getTotali()));
+				int contatore1=0;
+				int somma1=0;
+				for (Integer i: model.getListaAttese())
+				{
+					somma1+=i;
+					contatore1++;
+				}
+				txtBestAttesa.setText(String.format("%.2f min", 1.0*somma1/contatore1));
+				txtBestAsporto.setText(String.format("%.2f%%", (double)model.getAsporti()*100/model.getSoddisfatti()));
+				txtBestPreparati.setText(String.format("%.2f%%", (double)model.getPreparati()*100/model.getSoddisfatti()));
+				txtBestFatturato.setText(String.format("%.2f€", model.getFatturato()/100));
+				
 		
-		//Raccolgo i parametri
+		//WORST
+				
+				//Avvio la simulazione
+				model.avviaSimulazione(0, 0, 0, 10, 4, 5, 5, false);
+				//Raccolgo i parametri
+				txtWorstSoddisfatti.setText(String.format("%d", model.getSoddisfatti()));
+				txtWorstInsoddisfatti.setText(String.format("%d", model.getInsoddisfatti()));
+				txtWorstSoddisfazione.setText(String.format("%.2f%%",(double) model.getSoddisfatti()*100/model.getTotali()));
+				int contatore2=0;
+				int somma2=0;
+				for (Integer i: model.getListaAttese())
+				{
+					somma2+=i;
+					contatore2++;
+				}
+				txtWorstAttesa.setText(String.format("%.2f min", 1.0*somma2/contatore2));
+				txtWorstAsporto.setText(String.format("%.2f%%", (double)model.getAsporti()*100/model.getSoddisfatti()));
+				txtWorstPreparati.setText(String.format("%.2f%%", (double)model.getPreparati()*100/model.getSoddisfatti()));
+				txtWorstFatturato.setText(String.format("%.2f€", model.getFatturato()/100));
+				
 	}
 
 	@FXML

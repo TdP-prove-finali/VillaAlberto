@@ -30,6 +30,7 @@ public class Simula {
 	private boolean pastaFresca;
 
 // Variabili output
+	private int totali;
 	private int soddisfatti;
 	private int insoddisfatti;
 	private List<Integer> tempiAttesa;
@@ -62,6 +63,7 @@ public class Simula {
 	public void AvviaSimulazione() {
 
 		// Inizializzo le variabili di output
+		totali = 0;
 		soddisfatti = 0;
 		insoddisfatti = 0;
 		tempiAttesa = new LinkedList<Integer>();
@@ -90,6 +92,7 @@ public class Simula {
 
 			for (Tavolo t : tavoliDaServire) {
 				coda.add(new Evento(t.getTempoArrivo(), EventType.ARRIVA_TAVOLO, t));
+				totali += dimmiOrdinazioni(t.getId()).size();
 			}
 			// System.out.println("#tavoliDaServire: "+tavoliDaServire.size());
 			// System.out.println(coda);
@@ -120,10 +123,11 @@ public class Simula {
 								// System.out.println("Tavolo seduto");
 								// System.out.println("Posti disponibili: " + postiDisponibili);
 								// CREA NUOVO EVENTO PER LA PREPARAZIONE
+								soddisfatti+=ordinazioniDelTavolo.size();
 								coda.add(new Evento(e.getIstante(), EventType.ACCOMODA_TAVOLO, e.getTavolo()));
 								break;
 							} else {// I clienti non hanno piu'voglia di aspettare e se ne vanno
-								insoddisfatti += dimmiPariSuperioriore(ordinazioniDelTavolo.size());
+								insoddisfatti += ordinazioniDelTavolo.size();
 								// System.out.println("Clienti persi");
 								break;
 							}
@@ -133,8 +137,8 @@ public class Simula {
 									&& (Math.random() < percAsporto)) {// Tavolo accetta asporto
 								fatturato += 0.5 * e.getTavolo().getImporto(); // Sommo la metà del valore dello
 																				// scontrino
-								soddisfatti += ordinazioniDelTavolo.size();
-								piattiAsporto++;
+								piattiAsporto += dimmiOrdinazioni(e.getTavolo().getId()).size();
+								soddisfatti += dimmiOrdinazioni(e.getTavolo().getId()).size();
 								// System.out.println("Clienti asporto");
 								break;
 							} else { // Tavolo non accetta asporto
@@ -208,6 +212,9 @@ public class Simula {
 																												// tempo
 																												// piu'lungo
 									EventType.INIZIO_CONDIMENTO_PIATTO, e.getTavolo()));
+							System.out.println(e.getIstante());
+							System.out.println(
+									e.getIstante().plusSeconds(dimmiMaxTempoCottura(ordinazioni, pastaFresca)));
 							numeroBollitori = -(ordinazioni.size() - PiattiFreddi);// Sottraggo i bollitori dalle
 																					// risorse
 																					// disponibili
@@ -238,8 +245,6 @@ public class Simula {
 						coda.add(new Evento(e.getIstante().plusSeconds(tempo), EventType.FINE_PREPARAZIONE_PIATTO,
 								e.getTavolo()));
 						// System.out.println(e.getIstante().plusSeconds(tempo));
-						tempiAttesa
-								.add((int) ChronoUnit.MINUTES.between(e.getIstante(), e.getTavolo().getTempoArrivo()));
 						break;
 					} else {
 						coda.add(new Evento(e.getIstante().plusSeconds(30), EventType.INIZIO_CONDIMENTO_PIATTO,
@@ -264,6 +269,8 @@ public class Simula {
 					break;
 
 				case SERVITO_TAVOLO:
+					tempiAttesa.add((int) ChronoUnit.MINUTES.between(e.getTavolo().getTempoArrivo(), e.getIstante()));
+					System.err.println(ChronoUnit.MINUTES.between(e.getTavolo().getTempoArrivo(), e.getIstante()));
 					// System.out.println("Il cliente consuma\n");
 					// System.err.println(ChronoUnit.MINUTES.between(e.getTavolo().getTempoArrivo(),e.getIstante()));
 					if (ChronoUnit.MINUTES.between(e.getTavolo().getTempoArrivo(), e.getIstante()) > 40) // Se ho fatto
@@ -286,7 +293,7 @@ public class Simula {
 
 				case SCONTRINO_TAVOLO:
 					postiDisponibili += dimmiPariSuperioriore(dimmiOrdinazioni(e.getTavolo().getId()).size());
-					soddisfatti += dimmiOrdinazioni(e.getTavolo().getId()).size();
+					//soddisfatti += dimmiOrdinazioni(e.getTavolo().getId()).size();
 					fatturato += e.getTavolo().getImporto();
 					// System.out.println("Il cliente se ne va e libera le risorse\n");
 					break;
@@ -301,6 +308,7 @@ public class Simula {
 		System.out.println("PiattiGiàPreparati: " + piattiPreparati);
 		System.out.println("Soddisfatti: " + soddisfatti);
 		System.out.println("Insoddisfatti: " + insoddisfatti);
+		System.out.println("Totali: " + totali);
 		System.out.println();
 	}
 
@@ -335,6 +343,34 @@ public class Simula {
 			if (o.getTavolo().compareTo(id) == 0)
 				ls.add(o);
 		return ls;
+	}
+
+	public int getSoddisfatti() {
+		return soddisfatti;
+	}
+
+	public int getInsoddisfatti() {
+		return insoddisfatti;
+	}
+
+	public int getTotali() {
+		return totali;
+	}
+
+	public List<Integer> getListaAttese() {
+		return tempiAttesa;
+	}
+
+	public int getAsporti() {
+		return piattiAsporto;
+	}
+
+	public int getPreparati() {
+		return piattiPreparati;
+	}
+
+	public double getFatturato() {
+		return fatturato;
 	}
 
 }

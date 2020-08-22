@@ -19,6 +19,7 @@ public class Model {
 	Map<LocalDate, Giornata> mappaGiornatePerRicorsione;
 	List<Giornata> parziale;
 	List<Giornata> best;
+	Simula sim;
 	int clienti;
 	double fatturato;
 	int tempi;
@@ -42,7 +43,7 @@ public class Model {
 
 	public void avviaSimulazione(int giorniDehors, double percAsporto, double perFreddo, double tempoRiassetto, double tempoSanificazione, int frequenzaErrore, int tempoAttesa, boolean pastaFresca) {
 		System.out.println("Sono entrato in avvia Simulazione\n");
-		Simula sim= new Simula(giorniDehors, percAsporto, perFreddo, tempoRiassetto, tempoSanificazione, frequenzaErrore, tempoAttesa, pastaFresca, best, ordinazioniPerRicorsione);
+		sim= new Simula(giorniDehors, percAsporto, perFreddo, tempoRiassetto, tempoSanificazione, frequenzaErrore, tempoAttesa, pastaFresca, best, ordinazioniPerRicorsione);
 		sim.AvviaSimulazione();
 
 	}
@@ -386,5 +387,32 @@ public class Model {
 			tempo+=g.getTempiPreparazione();
 		return tempo/60;
 	}
+	
+	public int getSoddisfatti() {
+		return sim.getSoddisfatti();
+	}
+	
+	public int getInsoddisfatti() {
+		return sim.getInsoddisfatti();
+	}
+	
+	public int getTotali() {
+		return sim.getTotali();
+	}
 
+	public List<Integer> getListaAttese(){
+		return sim.getListaAttese();
+	}
+	
+	public int getAsporti() {
+		return sim.getAsporti();
+	}
+	
+	public int getPreparati() {
+		return sim.getPreparati();
+	}
+	
+	public double getFatturato() {
+		return sim.getFatturato();
+	}
 }
