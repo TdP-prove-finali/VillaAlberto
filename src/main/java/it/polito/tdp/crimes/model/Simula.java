@@ -286,7 +286,7 @@ public class Simula {
 							.between(e.getTavolo().getTempoServizio(), e.getTavolo().getTempoScontrino()));
 					// System.out.println(oraFineConsumazione);
 					// System.out.println(oraFineConsumazione.plusSeconds((long) (tempoSanificazione
-					// * 60)));
+					// * 60 )));
 					coda.add(new Evento(oraFineConsumazione.plusSeconds((long) (tempoSanificazione * 60)),
 							EventType.SCONTRINO_TAVOLO, e.getTavolo()));
 					break;
