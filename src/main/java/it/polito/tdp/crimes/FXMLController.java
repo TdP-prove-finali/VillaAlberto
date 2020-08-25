@@ -367,6 +367,7 @@ public class FXMLController {
 			//Aggiorno il numero di clienti serviti
 				
 				txtPersoneServite.setText(String.valueOf(ls.size()));
+				txtImporto.setText(String.valueOf(ls.size()*11.50));
 				
 				if(ls.size()>=1)
 					btnSalvaTavolo.setDisable(false);
@@ -421,6 +422,7 @@ public class FXMLController {
 		txtRiepilogoTavolo.clear();
 		model.pulisciListaTavolo();
 		txtPersoneServite.setText("0");
+		txtImporto.setText("10.00");
 	}
 
 	@FXML

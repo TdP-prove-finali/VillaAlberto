@@ -98,7 +98,7 @@
                                     <ToggleGroup fx:id="periodo" />
                                  </toggleGroup>
                               </JFXRadioButton>
-                              <JFXRadioButton fx:id="radUltimoMese" text="Ultime due settimane" toggleGroup="$periodo" GridPane.rowIndex="2" />
+                              <JFXRadioButton fx:id="radUltimoMese" selected="true" text="Ultime due settimane" toggleGroup="$periodo" GridPane.rowIndex="2" />
                               <JFXRadioButton fx:id="radUltimiMesi" text="Ultimo mese lavorativo" toggleGroup="$periodo" GridPane.rowIndex="3" />
                               <Label text="Condizioni ricorsione" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
                               <Label text="Clienti" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
