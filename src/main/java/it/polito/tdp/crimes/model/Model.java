@@ -4,12 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+
+import it.polito.tdp.crimes.db.EventsDao;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
-
-import it.polito.tdp.crimes.db.EventsDao;
 
 public class Model {
 	EventsDao dao;
@@ -188,12 +189,8 @@ public class Model {
 	public void ricorri(boolean maxClienti, boolean maxFatturato, boolean maxTempi) {
 		if (parziale.size() == 6) {
 			int cli = calcolaClienti();
-			// System.out.println(cli);
-			// System.out.println(clienti);
 			double fat = calcolaFatturato();
-			// System.out.println(fat);
 			int tem = calcolaTempi();
-			// System.out.println(tem);
 
 			// Controllo sui clienti
 			if (maxClienti) {
