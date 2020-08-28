@@ -1,34 +1,30 @@
-package it.polito.tdp.crimes.model;
+package it.polito.tdp.pasto.model;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.LinkedList;
 
 public class Giornata {
-	
-	private LocalDate giorno;
-	
 
+	private LocalDate giorno;
 
 	private int numClienti;
 	private double fatturato;
 	private int tempiPreparazione;
 	private LinkedList<Tavolo> listaTavoli;
-	
+
 	public Giornata(int numClienti, double fatturato, int tempiPreparazione) {
-		
-		this.listaTavoli= new LinkedList<Tavolo>();
+
+		this.listaTavoli = new LinkedList<Tavolo>();
 		this.numClienti = numClienti;
 		this.fatturato = fatturato;
 		this.tempiPreparazione = tempiPreparazione;
 	}
 
-	
 	public void setGiorno(LocalDate localDate) {
 		this.giorno = localDate;
 	}
-	
+
 	public LinkedList<Tavolo> getListaTavoli() {
 		listaTavoli.sort(new Comparator<Tavolo>() {
 
@@ -52,7 +48,7 @@ public class Giornata {
 	public int getTempiPreparazione() {
 		return tempiPreparazione;
 	}
-	
+
 	public void aggiungiTavoloAGiornata(Tavolo t) {
 		listaTavoli.add(t);
 	}
@@ -60,25 +56,24 @@ public class Giornata {
 	public LocalDate getGiorno() {
 		return giorno;
 	}
-	
+
 	public void aggiornaFatturato(double fat) {
-		fatturato+=fat;
+		fatturato += fat;
 	}
-	
+
 	public void aggiornaNumClienti(int cli) {
-		numClienti+=cli;
+		numClienti += cli;
 	}
-	
+
 	public void aggiornaTempi(int tem) {
-		tempiPreparazione+=tem;
+		tempiPreparazione += tem;
 	}
 
 	@Override
 	public String toString() {
 		return "giorno:" + giorno + " numClienti:" + numClienti + " fatturato:" + fatturato + " tempiPreparazione:"
-				+ tempiPreparazione+"\n";
+				+ tempiPreparazione + "\n";
 	}
-
 
 	@Override
 	public int hashCode() {
@@ -87,7 +82,6 @@ public class Giornata {
 		result = prime * result + ((giorno == null) ? 0 : giorno.hashCode());
 		return result;
 	}
-
 
 	@Override
 	public boolean equals(Object obj) {
@@ -105,5 +99,5 @@ public class Giornata {
 			return false;
 		return true;
 	}
-	
+
 }

@@ -1,11 +1,11 @@
-package it.polito.tdp.crimes.model;
+package it.polito.tdp.pasto.model;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-import it.polito.tdp.crimes.db.EventsDao;
+import it.polito.tdp.pasto.db.EventsDao;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -42,9 +42,11 @@ public class Model {
 		return dao.listAllPiatto();
 	}
 
-	public void avviaSimulazione(int giorniDehors, double percAsporto, double perFreddo, double tempoRiassetto, double tempoSanificazione, int frequenzaErrore, int tempoAttesa, boolean pastaFresca) {
-		System.out.println("Sono entrato in avvia Simulazione\n");
-		sim= new Simula(giorniDehors, percAsporto, perFreddo, tempoRiassetto, tempoSanificazione, frequenzaErrore, tempoAttesa, pastaFresca, best, ordinazioniPerRicorsione);
+	public void avviaSimulazione(int giorniDehors, double percAsporto, double perFreddo, double tempoRiassetto,
+			double tempoSanificazione, int frequenzaErrore, int tempoAttesa, boolean pastaFresca) {
+		//System.out.println("Sono entrato in avvia Simulazione\n");
+		sim = new Simula(giorniDehors, percAsporto, perFreddo, tempoRiassetto, tempoSanificazione, frequenzaErrore,
+				tempoAttesa, pastaFresca, best, ordinazioniPerRicorsione);
 		sim.AvviaSimulazione();
 
 	}
@@ -365,50 +367,50 @@ public class Model {
 	}
 
 	public int clientidaSimulare() {
-		int clienti=0;
-		for (Giornata g: best)
-			clienti+=g.getNumClienti();
+		int clienti = 0;
+		for (Giornata g : best)
+			clienti += g.getNumClienti();
 		return clienti;
 	}
 
 	public double fatturatoDaSimulare() {
-		double fatturato=0.0;
-		for (Giornata g:best)
-		fatturato+=g.getFatturato();
-		return fatturato/100;
+		double fatturato = 0.0;
+		for (Giornata g : best)
+			fatturato += g.getFatturato();
+		return fatturato / 100;
 	}
 
 	public int tempoDaSimulare() {
-		int tempo=0;
-		for (Giornata g: best)
-			tempo+=g.getTempiPreparazione();
-		return tempo/60;
+		int tempo = 0;
+		for (Giornata g : best)
+			tempo += g.getTempiPreparazione();
+		return tempo / 60;
 	}
-	
+
 	public int getSoddisfatti() {
 		return sim.getSoddisfatti();
 	}
-	
+
 	public int getInsoddisfatti() {
 		return sim.getInsoddisfatti();
 	}
-	
+
 	public int getTotali() {
 		return sim.getTotali();
 	}
 
-	public List<Integer> getListaAttese(){
+	public List<Integer> getListaAttese() {
 		return sim.getListaAttese();
 	}
-	
+
 	public int getAsporti() {
 		return sim.getAsporti();
 	}
-	
+
 	public int getPreparati() {
 		return sim.getPreparati();
 	}
-	
+
 	public double getFatturato() {
 		return sim.getFatturato();
 	}

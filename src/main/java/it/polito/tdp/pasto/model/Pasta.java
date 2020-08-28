@@ -1,4 +1,4 @@
-package it.polito.tdp.crimes.model;
+package it.polito.tdp.pasto.model;
 
 public class Pasta {
 
@@ -7,7 +7,7 @@ public class Pasta {
 	private Integer cotturaMax;
 	private Integer cotturaMin;
 	private String descrizione;
-	
+
 	public Pasta(Integer id, String nome, Integer cotturaMax, Integer cotturaMin, String descrizione) {
 		this.id = id;
 		this.nome = nome;
@@ -40,7 +40,5 @@ public class Pasta {
 	public String toString() {
 		return nome;
 	}
-	
-	
-	
+
 }

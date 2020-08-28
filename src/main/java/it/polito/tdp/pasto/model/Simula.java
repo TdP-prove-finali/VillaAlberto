@@ -1,4 +1,4 @@
-package it.polito.tdp.crimes.model;
+package it.polito.tdp.pasto.model;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Queue;
 
-import it.polito.tdp.crimes.model.Evento.EventType;
+import it.polito.tdp.pasto.model.Evento.EventType;
 
 public class Simula {
 
@@ -124,7 +124,7 @@ public class Simula {
 								// System.out.println("Tavolo seduto");
 								// System.out.println("Posti disponibili: " + postiDisponibili);
 								// CREA NUOVO EVENTO PER LA PREPARAZIONE
-								soddisfatti+=ordinazioniDelTavolo.size();
+								soddisfatti += ordinazioniDelTavolo.size();
 								coda.add(new Evento(e.getIstante(), EventType.ACCOMODA_TAVOLO, e.getTavolo()));
 								break;
 							} else {// I clienti non hanno piu'voglia di aspettare e se ne vanno
@@ -213,9 +213,9 @@ public class Simula {
 																												// tempo
 																												// piu'lungo
 									EventType.INIZIO_CONDIMENTO_PIATTO, e.getTavolo()));
-							System.out.println(e.getIstante());
-							System.out.println(
-									e.getIstante().plusSeconds(dimmiMaxTempoCottura(ordinazioni, pastaFresca)));
+							//System.out.println(e.getIstante());
+							//System.out.println(
+									//e.getIstante().plusSeconds(dimmiMaxTempoCottura(ordinazioni, pastaFresca)));
 							numeroBollitori = -(ordinazioni.size() - PiattiFreddi);// Sottraggo i bollitori dalle
 																					// risorse
 																					// disponibili
@@ -271,7 +271,7 @@ public class Simula {
 
 				case SERVITO_TAVOLO:
 					tempiAttesa.add((int) ChronoUnit.MINUTES.between(e.getTavolo().getTempoArrivo(), e.getIstante()));
-					System.err.println(ChronoUnit.MINUTES.between(e.getTavolo().getTempoArrivo(), e.getIstante()));
+					//System.err.println(ChronoUnit.MINUTES.between(e.getTavolo().getTempoArrivo(), e.getIstante()));
 					// System.out.println("Il cliente consuma\n");
 					// System.err.println(ChronoUnit.MINUTES.between(e.getTavolo().getTempoArrivo(),e.getIstante()));
 					if (ChronoUnit.MINUTES.between(e.getTavolo().getTempoArrivo(), e.getIstante()) > 40) // Se ho fatto
@@ -294,7 +294,7 @@ public class Simula {
 
 				case SCONTRINO_TAVOLO:
 					postiDisponibili += dimmiPariSuperioriore(dimmiOrdinazioni(e.getTavolo().getId()).size());
-					//soddisfatti += dimmiOrdinazioni(e.getTavolo().getId()).size();
+					// soddisfatti += dimmiOrdinazioni(e.getTavolo().getId()).size();
 					fatturato += e.getTavolo().getImporto();
 					// System.out.println("Il cliente se ne va e libera le risorse\n");
 					break;
@@ -304,13 +304,13 @@ public class Simula {
 			}
 
 		}
-		System.out.println("Fatturato:" + fatturato / 100);
-		System.out.println("PiattiAsporto: " + piattiAsporto);
-		System.out.println("PiattiGiàPreparati: " + piattiPreparati);
-		System.out.println("Soddisfatti: " + soddisfatti);
-		System.out.println("Insoddisfatti: " + insoddisfatti);
-		System.out.println("Totali: " + totali);
-		System.out.println();
+//		System.out.println("Fatturato:" + fatturato / 100);
+//		System.out.println("PiattiAsporto: " + piattiAsporto);
+//		System.out.println("PiattiGiàPreparati: " + piattiPreparati);
+//		System.out.println("Soddisfatti: " + soddisfatti);
+//		System.out.println("Insoddisfatti: " + insoddisfatti);
+//		System.out.println("Totali: " + totali);
+//		System.out.println();
 	}
 
 	private long dimmiMaxTempoCottura(List<Ordinazione> ordinazioni2, boolean pastaFresca2) {

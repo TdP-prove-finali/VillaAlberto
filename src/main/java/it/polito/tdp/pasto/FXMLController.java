@@ -1,4 +1,4 @@
-package it.polito.tdp.crimes;
+package it.polito.tdp.pasto;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
@@ -9,11 +9,11 @@ import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXTimePicker;
 import com.jfoenix.controls.JFXToggleButton;
 
-import it.polito.tdp.crimes.model.Condimento;
-import it.polito.tdp.crimes.model.Model;
-import it.polito.tdp.crimes.model.Ordinazione;
-import it.polito.tdp.crimes.model.Pasta;
-import it.polito.tdp.crimes.model.Piatto;
+import it.polito.tdp.pasto.model.Condimento;
+import it.polito.tdp.pasto.model.Model;
+import it.polito.tdp.pasto.model.Ordinazione;
+import it.polito.tdp.pasto.model.Pasta;
+import it.polito.tdp.pasto.model.Piatto;
 
 import java.net.URL;
 import java.time.LocalDate;

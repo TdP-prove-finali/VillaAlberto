@@ -1,45 +1,39 @@
-package it.polito.tdp.crimes.model;
+package it.polito.tdp.pasto.model;
 
-public class Piatto {
+public class Condimento {
+
 	private Integer id;
 	private String nome;
-	private int preparazione;
+	private Integer tempo;
 	private String descrizione;
-	
-	
-	public Piatto(Integer id, String nome, int preparazione, String descrizione) {
+
+	public Condimento(Integer id, String nome, Integer tempo, String descrizione) {
 		super();
 		this.id = id;
 		this.nome = nome;
-		this.preparazione = preparazione;
+		this.tempo = tempo;
 		this.descrizione = descrizione;
 	}
-
 
 	public Integer getId() {
 		return id;
 	}
 
-
 	public String getNome() {
 		return nome;
 	}
 
-
-	public int getPreparazione() {
-		return preparazione;
+	public Integer getTempo() {
+		return tempo;
 	}
-
 
 	public String getDescrizione() {
 		return descrizione;
 	}
 
-
 	@Override
 	public String toString() {
 		return nome;
 	}
-	
-	
+
 }
